@@ -49,18 +49,18 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", (req, res) => {
   res.render("index", {
-    title: "Pantry Atlas",
-    eyebrow: "Home Inventory Control",
+    title: "Beadman Food Inventory",
+    eyebrow: "Im hungry",
     lede:
-      "Track pantry, fridge, and freezer items with intent. Log quantities, set minimums, and get ahead of expiring ingredients.",
-    footer: "Built for quick pantry audits, meal planning, and peace of mind.",
+      "Lets see what we got",
+    footer: "Built for meal planning",
     year: new Date().getFullYear(),
   });
 });
 
 app.get("/mobile", (req, res) => {
   res.render("mobile", {
-    title: "Pantry Atlas Mobile",
+    title: "Beadman Food Inventory Mobile",
     year: new Date().getFullYear(),
   });
 });
