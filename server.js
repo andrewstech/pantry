@@ -60,7 +60,10 @@ app.get("/", (req, res) => {
 
 app.get("/mobile", (req, res) => {
   res.render("mobile", {
-    title: "Beadman Food Inventory Mobile",
+    title: "Beadman Food Inventory",
+    eyebrow: "Im hungry",
+    lede: "Lets see what we got",
+    footer: "Built for meal planning",
     year: new Date().getFullYear(),
   });
 });

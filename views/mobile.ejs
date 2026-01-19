@@ -20,12 +20,9 @@
 
     <header class="hero">
       <div>
-        <p class="eyebrow">One-hand Audit</p>
-        <h1>Pantry Atlas Mobile</h1>
-        <p class="lede">
-          A tighter layout for quick scans and edits. Use the camera scanner and
-          log items on the go.
-        </p>
+        <p class="eyebrow"><%= eyebrow %></p>
+        <h1><%= title %></h1>
+        <p class="lede"><%= lede %></p>
       </div>
     </header>
 
@@ -34,7 +31,7 @@
         <div class="inventory-header">
           <div>
             <h2>Inventory</h2>
-            <p class="muted">Use filters to find items fast.</p>
+            <p class="muted">Tap quantities to adjust quickly.</p>
           </div>
           <div class="inventory-controls">
             <div class="field">
@@ -138,7 +135,7 @@
     </div>
 
     <footer class="footer">
-      <p>Mobile-first tracking for pantry, fridge, and freezer. <span aria-hidden="true">•</span> <%= year %></p>
+      <p><%= footer %> <span aria-hidden="true">•</span> <%= year %></p>
     </footer>
 
     <script src="https://unpkg.com/@zxing/library@0.21.2/umd/index.min.js"></script>
