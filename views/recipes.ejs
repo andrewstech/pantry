@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <meta name="theme-color" content="#f97316" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Pantry Atlas" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="/icons/icon-180.png" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="orb orb-c"></div>
+
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Use What You Have</p>
+        <h1>Suggested Recipes</h1>
+        <p class="lede">
+          Suggestions are ranked by how many pantry, fridge, and freezer items match your inventory.
+        </p>
+      </div>
+      <div class="hero-card">
+        <div class="hero-stat">
+          <span class="label">Items on hand</span>
+          <strong><%= items.length %></strong>
+        </div>
+        <div class="hero-stat">
+          <span class="label">Recipe matches</span>
+          <strong><%= suggestions.length %></strong>
+        </div>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section class="panel inventory-panel">
+        <div class="inventory-header">
+          <div>
+            <h2>Recipe ideas</h2>
+            <p class="muted">Add more items to unlock better matches.</p>
+          </div>
+        </div>
+        <div class="inventory-list">
+          <% if (error) { %>
+            <div class="card"><%= error %></div>
+          <% } else if (!suggestions.length) { %>
+            <div class="card">Add items to see recipe matches.</div>
+          <% } %>
+          <% suggestions.forEach((recipe) => { %>
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <strong><%= recipe.title %></strong>
+                  <div class="muted">
+                    Used: <%= recipe.usedIngredientCount %> • Missing: <%= recipe.missedIngredientCount %>
+                  </div>
+                </div>
+                <span class="tag"><%= recipe.likes %> likes</span>
+              </div>
+              <div class="card-grid">
+                <div>
+                  <div class="muted">Used ingredients</div>
+                  <div><%= recipe.usedIngredients.map((item) => item.name).join(", ") || "None" %></div>
+                </div>
+                <div>
+                  <div class="muted">Missing ingredients</div>
+                  <div><%= recipe.missedIngredients.map((item) => item.name).join(", ") || "None" %></div>
+                </div>
+              </div>
+              <div class="muted">
+                Spoonacular recipe id: <%= recipe.id %>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+      </section>
+
+      <section class="panel form-panel">
+        <h2>Inventory overview</h2>
+        <p class="muted">Current items help match recipes.</p>
+        <div class="inventory-list">
+          <% if (!items.length) { %>
+            <div class="card">No items yet. Add pantry staples first.</div>
+          <% } %>
+          <% items.forEach((item) => { %>
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <strong><%= item.name %></strong>
+                  <div class="muted"><%= item.category || "Uncategorized" %></div>
+                </div>
+                <span class="tag"><%= item.location %></span>
+              </div>
+              <div class="card-grid">
+                <div>
+                  <div class="muted">Quantity</div>
+                  <div><%= item.quantity %> <%= item.unit %></div>
+                </div>
+                <div>
+                  <div class="muted">Barcode</div>
+                  <div><%= item.barcode || "-" %></div>
+                </div>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Cook with intent, waste less. <span aria-hidden="true">•</span> <%= year %></p>
+    </footer>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/sw.js").catch(() => {});
+        });
+      }
+    </script>
+  </body>
+</html>

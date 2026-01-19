@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <meta name="theme-color" content="#f97316" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Pantry Atlas" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="/icons/icon-180.png" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="orb orb-c"></div>
+
+    <header class="hero">
+      <div>
+        <p class="eyebrow">One-hand Audit</p>
+        <h1>Pantry Atlas Mobile</h1>
+        <p class="lede">
+          A tighter layout for quick scans and edits. Use the camera scanner and
+          log items on the go.
+        </p>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section class="panel inventory-panel">
+        <div class="inventory-header">
+          <div>
+            <h2>Inventory</h2>
+            <p class="muted">Use filters to find items fast.</p>
+          </div>
+          <div class="inventory-controls">
+            <div class="field">
+              <label for="search">Search</label>
+              <input id="search" type="search" placeholder="Flour, chicken" />
+            </div>
+            <div class="field">
+              <label for="filter-location">Location</label>
+              <select id="filter-location">
+                <option value="all">All</option>
+                <option value="pantry">Pantry</option>
+                <option value="fridge">Fridge</option>
+                <option value="freezer">Freezer</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="filter-status">Status</label>
+              <select id="filter-status">
+                <option value="all">All</option>
+                <option value="expiring">Expiring soon</option>
+                <option value="low">Low stock</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div id="inventory-list" class="inventory-list"></div>
+      </section>
+    </main>
+
+    <button type="button" id="open-modal" class="fab">Add item</button>
+
+    <div id="form-modal" class="modal" aria-hidden="true">
+      <div class="modal-panel panel">
+        <div class="modal-header">
+          <h2>Add or update item</h2>
+          <button type="button" id="close-modal" class="ghost">Close</button>
+        </div>
+        <form id="item-form">
+          <div class="field">
+            <label for="item-name">Item name</label>
+            <input id="item-name" name="name" type="text" placeholder="Oats" required />
+          </div>
+          <div class="field-group">
+            <div class="field">
+              <label for="item-qty">Quantity</label>
+              <input id="item-qty" name="quantity" type="number" min="0" step="0.1" value="1" required />
+            </div>
+            <div class="field">
+              <label for="item-unit">Unit</label>
+              <input id="item-unit" name="unit" type="text" placeholder="lbs, jars" />
+            </div>
+          </div>
+          <div class="field-group">
+            <div class="field">
+              <label for="item-location">Location</label>
+              <select id="item-location" name="location" required>
+                <option value="pantry">Pantry</option>
+                <option value="fridge">Fridge</option>
+                <option value="freezer">Freezer</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="item-category">Category</label>
+              <input id="item-category" name="category" type="text" placeholder="Breakfast, Produce" />
+            </div>
+          </div>
+          <div class="field-group">
+            <div class="field">
+              <label for="item-expiration">Expiration date</label>
+              <input id="item-expiration" name="expiration" type="date" />
+            </div>
+            <div class="field">
+              <label for="item-min">Low-stock threshold</label>
+              <input id="item-min" name="minimum" type="number" min="0" step="0.1" value="1" />
+            </div>
+          </div>
+          <div class="field-group">
+            <div class="field">
+              <label for="item-barcode">Barcode</label>
+              <input id="item-barcode" name="barcode" type="text" placeholder="UPC / EAN" />
+            </div>
+            <div class="field">
+              <label>Scanner</label>
+              <button type="button" id="scan-toggle" class="ghost">Start scan</button>
+            </div>
+          </div>
+          <div class="scanner">
+            <video id="scanner-preview" playsinline></video>
+            <p id="scan-status" class="muted">Use your camera to scan a barcode.</p>
+          </div>
+          <div class="field">
+            <label for="item-notes">Notes</label>
+            <textarea id="item-notes" name="notes" rows="3" placeholder="Brand, prep idea, or storage tip"></textarea>
+          </div>
+          <div class="actions">
+            <button type="submit">Save item</button>
+            <button type="button" id="reset-form" class="ghost">Reset</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>Mobile-first tracking for pantry, fridge, and freezer. <span aria-hidden="true">•</span> <%= year %></p>
+    </footer>
+
+    <script src="https://unpkg.com/@zxing/library@0.21.2/umd/index.min.js"></script>
+    <script src="/app.js"></script>
+  </body>
+</html>

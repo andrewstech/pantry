@@ -1,0 +1,21 @@
+{
+  "name": "Pantry Atlas",
+  "short_name": "Pantry",
+  "description": "Home pantry, fridge, and freezer inventory management system.",
+  "start_url": "/mobile",
+  "display": "standalone",
+  "background_color": "#fdf2e6",
+  "theme_color": "#f97316",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
